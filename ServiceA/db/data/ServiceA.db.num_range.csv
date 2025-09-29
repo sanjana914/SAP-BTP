@@ -1,0 +1,3 @@
+OBJECT_ID,range_from,range_to,current_seq
+"BOOKS",1,1000,
+"AUTHORS",100,1000,
