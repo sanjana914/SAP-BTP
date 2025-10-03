@@ -7,26 +7,39 @@
     "@sap-cloud-sdk/http-client": "^3.26.4",
     "@sap-cloud-sdk/resilience": "^3",
     "@sap/cds": "^9",
-    "express": "^4"
+    "express": "^4",
+    "@sap/xssec": "^4"
   },
   "devDependencies": {
-    "@cap-js/sqlite": "^2"
+    "@cap-js/sqlite": "^2",
+    "@sap/cds-dk": "^9"
   },
   "scripts": {
     "start": "cds-serve"
   },
   "private": true,
   "cds": {
-    "requires": {
-      "NorthWind": {
-        "kind": "odata",
-        "model": "srv/external/NorthWind",
-        "[backend]": {
-          "credentials": {
-            "url": "https://services.odata.org/Experimental/OData/OData.svc"
-          }
-        }
-      }
-    }
-  }
+		"requires": {
+			"NorthWind": {
+				"kind": "odata",
+				"model": "srv/external/NorthWind",
+				"[backend]": {
+					"credentials": {
+						"url": "https://services.odata.org/Experimental/OData/OData.svc"
+					}
+				},
+				"[production]": {
+					"credentials": {
+						"destination": "NorthWind"
+					}
+				}
+			},
+			"[production]": {
+				"auth": {
+					"kind": "xsuaa",
+					"restrict_all_services": false
+				}
+			}
+		}
+	}
 }

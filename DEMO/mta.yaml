@@ -1,5 +1,5 @@
-_schema-version: 3.3.0
-ID: ServiceA
+_schema-version: "3.1"
+ID: com.jcailan.cap-samples
 version: 1.0.0
 description: "A simple CAP project."
 parameters:
@@ -8,14 +8,13 @@ build-parameters:
   before-all:
     - builder: custom
       commands:
-        - npm ci
-        - npx cds build --production
+        - npx -p @sap/cds-dk cds build --production
+
 modules:
-  - name: ServiceA-srv
+  - name: cap-samples-srv
     type: nodejs
     path: gen/srv
     parameters:
-      instances: 1
       buildpack: nodejs_buildpack
     build-parameters:
       builder: npm-ci
@@ -24,27 +23,22 @@ modules:
         properties:
           srv-url: ${default-url}
     requires:
-      - name: ServiceA-auth
-      - name: ServiceA-db
-
-  - name: ServiceA-db-deployer
-    type: hdb
-    path: gen/db
-    requires:
-      - name: ServiceA-db
+      - name: cap-samples-uaa
+      - name: cap-samples-destination
 
 resources:
-  - name: ServiceA-auth
+  - name: cap-samples-uaa
     type: org.cloudfoundry.managed-service
     parameters:
       service: xsuaa
       service-plan: application
       path: ./xs-security.json
       config:
-        xsappname: ServiceA-${org}-${space}
+        xsappname: cap-samples-${org}-${space}
         tenant-mode: dedicated
-  - name: ServiceA-db
-    type: com.sap.xs.hdi-container
+
+  - name: cap-samples-destination
+    type: org.cloudfoundry.managed-service
     parameters:
-      service: hana
-      service-plan: hdi-shared
+      service: destination
+      service-plan: lite

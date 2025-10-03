@@ -4,13 +4,14 @@
   "description": "A simple CAP project.",
   "dependencies": {
     "@cap-js/hana": "^2.2.0",
-    "@sap/cds": "^9.3.1",
+    "@sap/hdi-deploy": "^5.5.1",
     "@sap/xssec": "^4",
     "express": "^4"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^2",
-    "@sap/cds-dk": "^9"
+    "@sap/cds": "^9.3.1",
+    "@sap/cds-dk": "^9.3.2"
   },
   "scripts": {
     "start": "cds-serve"
@@ -18,8 +19,12 @@
   "private": true,
   "cds": {
     "requires": {
+      "db": {
+        "kind": "hana"
+      },
       "[production]": {
-        "auth": "xsuaa"
+        "auth": "xsuaa",
+        "db": "hana"
       }
     }
   }

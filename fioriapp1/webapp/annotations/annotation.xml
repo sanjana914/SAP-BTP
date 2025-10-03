@@ -1,49 +1,62 @@
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    
     <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
         <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
     </edmx:Reference>
+
+    
     <edmx:Reference Uri="/V2/Northwind/Northwind.svc/$metadata">
         <edmx:Include Namespace="NorthwindModel"/>
         <edmx:Include Namespace="ODataWeb.Northwind.Model"/>
     </edmx:Reference>
+
     <edmx:DataServices>
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
             <Annotations Target="NorthwindModel.Customer">
+
                 <Annotation Term="UI.LineItem">
                     <Collection>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="CompanyName"/>
+                            <PropertyValue Property="Value" Path="CustomerID"/>
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="CustomerID"/>
+                            <PropertyValue Property="Value" Path="CompanyName"/>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="Country"/>
                         </Record>
                     </Collection>
                 </Annotation>
-                <Annotation Term="UI.SelectionFields">
-                    <Collection>
-                        <PropertyPath>CustomerID</PropertyPath>
-                    </Collection>
-                </Annotation>
-                <Annotation Term="UI.DataPoint" Qualifier="CustomerID">
-                    <Record Type="UI.DataPointType">
-                        <PropertyValue Property="Title" String="Customer ID"/>
-                        <PropertyValue Property="Value" Path="CustomerID"/>
-                    </Record>
-                </Annotation>
+
                 <Annotation Term="UI.FieldGroup" Qualifier="address">
                     <Record Type="UI.FieldGroupType">
                         <PropertyValue Property="Data">
                             <Collection>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Address"/>
                                     <PropertyValue Property="Value" Path="Address"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="City"/>
+                                    <PropertyValue Property="Value" Path="City"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Postal"/>
+                                    <PropertyValue Property="Value" Path="PostalCode"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Phone"/>
+                                    <PropertyValue Property="Value" Path="Phone"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Fax"/>
+                                    <PropertyValue Property="Value" Path="Fax"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
                     </Record>
                 </Annotation>
+
                 <Annotation Term="UI.Facets">
                     <Collection>
                         <Record Type="UI.ReferenceFacet">
@@ -51,9 +64,56 @@
                             <PropertyValue Property="ID" String="idContact"/>
                             <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#address"/>
                         </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Customer Orders"/>
+                            <PropertyValue Property="ID" String="orders"/>
+                            <PropertyValue Property="Target" AnnotationPath="Orders/@UI.LineItem"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="CustomerID">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Title" String="ID"/>
+                        <PropertyValue Property="Value" Path="CustomerID"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="CustomerName">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Title" String="Name"/>
+                        <PropertyValue Property="Value" Path="ContactName"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="CustomerCompany">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Title" String="Company"/>
+                        <PropertyValue Property="Value" Path="CompanyName"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+
+            <Annotations Target="NorthwindModel.Order">
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Order ID"/>
+                            <PropertyValue Property="Value" Path="OrderID"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Order Date"/>
+                            <PropertyValue Property="Value" Path="OrderDate"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Ship City"/>
+                            <PropertyValue Property="Value" Path="ShipCity"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Ship Country"/>
+                            <PropertyValue Property="Value" Path="ShipCountry"/>
+                        </Record>
                     </Collection>
                 </Annotation>
             </Annotations>
+
         </Schema>
     </edmx:DataServices>
 </edmx:Edmx>
